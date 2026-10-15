@@ -125,6 +125,7 @@ internal enum class SettingsSection {
     PERMISSIONS_AND_HELP,
     LANGUAGE,
     TURN_CAMERA,
+    VEHICLE_PROFILE,
 }
 
 internal object SettingsInformationArchitecture {
@@ -150,6 +151,7 @@ internal object SettingsInformationArchitecture {
             SettingsSection.CARPLAY_CONTROLS,
             SettingsSection.WHEEL_KEYS,
             SettingsSection.CAR_BUTTON,
+            SettingsSection.VEHICLE_PROFILE,
         ),
         SettingsCategory.DIAGNOSTICS to setOf(SettingsSection.DIAGNOSTICS),
         SettingsCategory.ADVANCED to setOf(
@@ -2123,6 +2125,15 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         }
         filteredSection(content, SettingsSection.CAR_BUTTON,
             getString(R.string.car_button_in_carplay), R.drawable.ic_dp_car) { card -> carButtonCard = card; carButtonControls(card) }
+        filteredSection(content, SettingsSection.VEHICLE_PROFILE,
+            getString(R.string.settings_vehicle_profile), R.drawable.ic_dp_vehicle) { card ->
+            val brands = listOf(AirPlayPersistence.VEHICLE_BRAND_BYD, AirPlayPersistence.VEHICLE_BRAND_CHERY)
+            choice(card, getString(R.string.settings_vehicle_profile),
+                listOf(getString(R.string.settings_vehicle_brand_byd), getString(R.string.settings_vehicle_brand_chery)),
+                brands.indexOf(AirPlayPersistence.loadVehicleBrand(this)).coerceAtLeast(0),
+                reconnects = false) { AirPlayPersistence.saveVehicleBrand(this, brands[it]) }
+            card.addView(label(getString(R.string.settings_vehicle_profile_hint), 14, MUTED))
+        }
         filteredSection(content, SettingsSection.AUDIO_ROUTING,
             getString(R.string.audio_routing), R.drawable.ic_dp_audio) { card ->
             mediaChannelControl(card)
@@ -2517,7 +2528,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             }
         }
         // FCE head units show this card for their cluster's navigation view, which has its own opt-in.
-        val bydNavigation = BydOutputSettings.available(this)
+        val bydNavigation = BydOutputSettings.available(this) && !AirPlayPersistence.isCheryVehicle(this)
         if (bydNavigation || BydOutputSettings.fceClusterAvailable()) filteredSection(content, SettingsSection.BYD_NAVIGATION,
             getString(R.string.byd_navigation), R.drawable.ic_dp_navigation) { card ->
             toggle(card, getString(R.string.navigation_on_hud_and_instrument_cluster),

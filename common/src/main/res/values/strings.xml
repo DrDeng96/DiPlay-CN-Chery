@@ -91,7 +91,7 @@
     <string name="safe_area_mapping_summary">Safe area: %1$d x %2$d at (%3$d, %4$d) in %5$d x %6$d</string>
     <string name="settings_android9_compat">The following settings are unavailable and hidden on Android 9 (API 28):\n• Wi-Fi P2P (5 GHz) — LocalOnlyHotspot is used instead.\n• HEVC software decoder — hardware decoding is used instead.</string>
     <string name="settings_mfi_address_hint">Address must start with http:// or https://. Token is optional and sent as an Authorization bearer token.</string>
-    <string name="app_name">DiPlay</string>
+    <string name="app_name">Chery Connect</string>
     <string name="language_section_title">Language</string>
     <string name="language_app_language">App language</string>
     <string name="language_system_default">System default</string>
@@ -192,7 +192,7 @@
     <string name="default_placeholder_icon">Default placeholder icon</string>
     <string name="diagnostic_report_saved">Diagnostic report saved</string>
     <string name="diagnostics">Diagnostics</string>
-    <string name="diplay">DiPlay</string>
+    <string name="diplay">Chery Connect</string>
     <string name="discard_changes_and_exit_settings">Discard changes and exit settings</string>
     <string name="disconnect">Disconnect</string>
     <string name="discovering_iphone">Discovering iPhone</string>
@@ -1019,4 +1019,8 @@
     <string name="settings_write_settings_allow">Allow access</string>
     <string name="settings_wifi_direct_scan_pause">Pause the car\'s Wi-Fi search during CarPlay · needs ADB</string>
     <string name="settings_wifi_direct_scan_pause_description">Over Wi-Fi Direct the car searches for Wi-Fi networks every few seconds, and each search makes music and video stutter. With this on, DiPlay pauses the search while CarPlay runs. The car then also does not join a known network, such as your phone\'s hotspot, by itself until CarPlay ends; you can still join one in the car\'s Wi-Fi settings. Turn it off to let the car join automatically. Applies at the next connection.</string>
+    <string name="settings_vehicle_profile">Vehicle brand</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">Chery</string>
+    <string name="settings_vehicle_profile_hint">Hide BYD-only cluster and navigation features on non-BYD head units.</string>
 </resources>

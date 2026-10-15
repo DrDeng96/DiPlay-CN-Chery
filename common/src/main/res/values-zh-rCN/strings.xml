@@ -105,7 +105,7 @@
     <string name="allow_the_connection_permission_to_continue">请授予连接权限以继续</string>
     <string name="an_independent_carplay_receiver_for_android_head_units_wir">面向 Android 车机的独立 CarPlay 接收器。有线和无线连接均在车机上运行，并使用本地认证。普通 iPhone 无需越狱、Mac、转接器或登录即可连接。\n\n此预览版使用实验性配件身份，仍在测试与不同 iPhone 和车机的兼容性。本产品未经 Apple 认证。</string>
     <string name="android_9_compatibility">Android 9 兼容性</string>
-    <string name="app_name">DiPlay</string>
+    <string name="app_name">奇瑞互联</string>
     <string name="app_permissions">应用权限</string>
     <string name="app_settings">应用设置</string>
     <string name="apply_and_reconnect">应用并重新连接</string>
@@ -186,7 +186,7 @@
     <string name="default_placeholder_icon">默认占位图标</string>
     <string name="diagnostic_report_saved">诊断报告已保存</string>
     <string name="diagnostics">诊断</string>
-    <string name="diplay">DiPlay</string>
+    <string name="diplay">奇瑞互联</string>
     <string name="discard_changes_and_exit_settings">放弃更改并退出设置</string>
     <string name="disconnect">断开连接</string>
     <string name="discovering_iphone">正在查找 iPhone</string>
@@ -976,4 +976,8 @@
     <string name="settings_write_settings_allow">允许权限</string>
     <string name="settings_wifi_direct_scan_pause">CarPlay 期间暂停车机 Wi-Fi 搜索 · 需要 ADB</string>
     <string name="settings_wifi_direct_scan_pause_description">Wi-Fi 直连时，车机每隔几秒搜索一次 Wi-Fi 网络，每次搜索都会让音乐和画面卡顿。开启后，CarPlay 运行期间 DiPlay 会暂停这个搜索。这段时间车机也不会自动连接已知网络（例如手机热点），可以在车机 Wi-Fi 设置里手动连接；CarPlay 结束后恢复。关闭后车机可以自动连接。下次连接时生效。</string>
+    <string name="settings_vehicle_profile">车辆品牌</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">奇瑞</string>
+    <string name="settings_vehicle_profile_hint">在非比亚迪车机上，隐藏比亚迪专属的仪表盘与导航功能。</string>
 </resources>

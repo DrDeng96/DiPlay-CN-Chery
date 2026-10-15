@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DiPlay</string>
+    <string name="app_name">Chery Connect</string>
     <string name="language_section_title">言語</string>
     <string name="language_app_language">アプリの言語</string>
     <string name="language_system_default">システムの設定に従う</string>
@@ -192,7 +192,7 @@
     <string name="default_placeholder_icon">標準の仮アイコン</string>
     <string name="diagnostic_report_saved">診断レポートを保存しました</string>
     <string name="diagnostics">診断</string>
-    <string name="diplay">DiPlay</string>
+    <string name="diplay">Chery Connect</string>
     <string name="discard_changes_and_exit_settings">変更を破棄して設定を終了</string>
     <string name="disconnect">切断</string>
     <string name="discovering_iphone">iPhoneを検索しています</string>
@@ -978,4 +978,8 @@
     <string name="settings_write_settings_allow">アクセスを許可</string>
     <string name="settings_wifi_direct_scan_pause">CarPlay中は車のWi-Fi検索を一時停止 · ADBが必要</string>
     <string name="settings_wifi_direct_scan_pause_description">Wi-Fi Directでは車が数秒ごとにWi-Fiネットワークを検索し、そのたびに音楽と映像が途切れます。オンにすると、CarPlayの実行中はDiPlayがこの検索を止めます。その間、車はスマートフォンのテザリングなど既知のネットワークにも自動では接続しません（車のWi-Fi設定から手動では接続できます）。自動で接続させたい場合はオフにしてください。次の接続から適用されます。</string>
+    <string name="settings_vehicle_profile">車両ブランド</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">奇瑞</string>
+    <string name="settings_vehicle_profile_hint">BYD 以外の車載機では、BYD 専用のクラスターとナビゲーション機能を非表示にします。</string>
 </resources>

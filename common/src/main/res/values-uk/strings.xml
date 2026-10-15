@@ -92,7 +92,7 @@
     <string name="safe_area_mapping_summary">Безпечна область: %1$d x %2$d у точці (%3$d, %4$d) на екрані %5$d x %6$d</string>
     <string name="settings_android9_compat">Наведені нижче налаштування недоступні та приховані в Android 9 (API 28):\n• Wi-Fi P2P (5 ГГц) — натомість використовується LocalOnlyHotspot.\n• Програмний декодер HEVC — натомість використовується апаратне декодування.</string>
     <string name="settings_mfi_address_hint">Адреса має починатися з http:// або https://. Токен необов’язковий і надсилається як токен авторизації Bearer.</string>
-    <string name="app_name">DiPlay</string>
+    <string name="app_name">Chery Connect</string>
     <string name="language_section_title">Мова</string>
     <string name="language_app_language">Мова застосунку</string>
     <string name="language_system_default">Мова системи</string>
@@ -190,7 +190,7 @@
     <string name="default_placeholder_icon">Типовий значок-заповнювач</string>
     <string name="diagnostic_report_saved">Діагностичний звіт збережено</string>
     <string name="diagnostics">Діагностика</string>
-    <string name="diplay">DiPlay</string>
+    <string name="diplay">Chery Connect</string>
     <string name="discard_changes_and_exit_settings">Скасувати зміни й вийти з налаштувань</string>
     <string name="disconnect">Відключити</string>
     <string name="discovering_iphone">Пошук iPhone</string>
@@ -929,4 +929,8 @@
     <string name="settings_write_settings_allow">Дозволити доступ</string>
     <string name="settings_wifi_direct_scan_pause">Призупинити пошук Wi-Fi автомобілем під час CarPlay · потрібен ADB</string>
     <string name="settings_wifi_direct_scan_pause_description">У режимі Wi-Fi Direct автомобіль шукає мережі Wi-Fi кожні кілька секунд, і кожен пошук перериває музику й відео. Коли параметр увімкнено, DiPlay призупиняє пошук, поки працює CarPlay. Тоді автомобіль і сам не підключається до відомої мережі, наприклад до точки доступу телефона, доки CarPlay не завершиться; підключитися можна вручну в налаштуваннях Wi-Fi автомобіля. Вимкніть, щоб автомобіль підключався сам. Застосовується під час наступного підключення.</string>
+    <string name="settings_vehicle_profile">Марка автомобіля</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">Chery</string>
+    <string name="settings_vehicle_profile_hint">Приховати функції кластера та навігації, призначені лише для BYD, на пристроях інших марок.</string>
 </resources>

@@ -26,6 +26,10 @@ object AirPlayPersistence {
     /** 0 uses usage-based routing; 1–20 select stream types supported by the head unit. */
     val AUDIO_CHANNELS = 0..20
     private const val PREFS = "xcertplay_airplay"
+    /** Vehicle brand: 0 = BYD DiLink (default), 1 = Chery. */
+    const val VEHICLE_BRAND_BYD = 0
+    const val VEHICLE_BRAND_CHERY = 1
+    private const val KEY_VEHICLE_BRAND = "vehicle_brand"
     private const val KEY_IDENT_PRIVATE = "identity_private"
     private const val KEY_IDENT_PUBLIC = "identity_public"
     private const val KEY_PAIRING_ID = "pairing_id"
@@ -941,6 +945,15 @@ object AirPlayPersistence {
     fun saveAdaptPipResolution(context: Context, enabled: Boolean) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean(KEY_ADAPT_PIP_RESOLUTION, enabled).apply()
     }
+
+    fun loadVehicleBrand(context: Context): Int =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getInt(KEY_VEHICLE_BRAND, VEHICLE_BRAND_BYD)
+
+    fun saveVehicleBrand(context: Context, brand: Int) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putInt(KEY_VEHICLE_BRAND, brand).apply()
+    }
+
+    fun isCheryVehicle(context: Context): Boolean = loadVehicleBrand(context) == VEHICLE_BRAND_CHERY
 
     fun loadClusterContent(context: Context): CarPlayClusterDisplay.Content =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getString(KEY_CLUSTER_CONTENT, null)

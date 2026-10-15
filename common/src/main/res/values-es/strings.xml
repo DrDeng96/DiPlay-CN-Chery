@@ -916,4 +916,8 @@
     <string name="settings_write_settings_allow">Permitir acceso</string>
     <string name="settings_wifi_direct_scan_pause">Pausar la búsqueda de Wi-Fi del coche con CarPlay · requiere ADB</string>
     <string name="settings_wifi_direct_scan_pause_description">Con Wi-Fi Direct el coche busca redes Wi-Fi cada pocos segundos, y cada búsqueda hace que la música y el vídeo se corten. Con esta opción, DiPlay pausa la búsqueda mientras CarPlay está activo. Entonces el coche tampoco se conecta solo a una red conocida, como el punto de acceso de tu teléfono, hasta que CarPlay termina; puedes conectarte a mano en los ajustes de Wi-Fi del coche. Desactívala para que el coche se conecte solo. Se aplica en la próxima conexión.</string>
+    <string name="settings_vehicle_profile">Marca del vehículo</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">Chery</string>
+    <string name="settings_vehicle_profile_hint">Oculta las funciones de clúster y navegación exclusivas de BYD en unidades que no son BYD.</string>
 </resources>

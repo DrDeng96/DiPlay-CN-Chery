@@ -965,4 +965,8 @@
     <string name="settings_write_settings_allow">السماح بالإذن</string>
     <string name="settings_wifi_direct_scan_pause">إيقاف بحث السيارة عن Wi-Fi أثناء CarPlay · يتطلب ADB</string>
     <string name="settings_wifi_direct_scan_pause_description">مع Wi-Fi Direct تبحث السيارة عن شبكات Wi-Fi كل بضع ثوانٍ، وكل بحث يجعل الموسيقى والفيديو يتقطعان. عند تشغيل هذا الخيار يوقف DiPlay البحث أثناء تشغيل CarPlay. عندها لا تتصل السيارة تلقائيًا بشبكة معروفة، مثل نقطة اتصال هاتفك، حتى ينتهي CarPlay؛ ويمكنك الاتصال بها يدويًا من إعدادات Wi-Fi في السيارة. أوقفه لتتصل السيارة تلقائيًا. يُطبَّق عند الاتصال التالي.</string>
+    <string name="settings_vehicle_profile">ماركة المركبة</string>
+    <string name="settings_vehicle_brand_byd">BYD DiLink</string>
+    <string name="settings_vehicle_brand_chery">شيري</string>
+    <string name="settings_vehicle_profile_hint">إخفاء ميزات العدّاد والملاحة الخاصة بـ BYD على الأجهزة غير التابعة لـ BYD.</string>
 </resources>
