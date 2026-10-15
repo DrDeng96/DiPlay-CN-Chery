@@ -1,79 +1,115 @@
-# DiPlay CN
+# 奇瑞互联
 
-> 简体中文说明见 [README.zh-CN.md](README.zh-CN.md)。本仓库基于上游 DiPlay `v0.2.20`。
+> 让奇瑞安卓车机用上 Apple CarPlay 的开源方案，基于 [DiPlay-CN](https://github.com/serein-morii/DiPlay-CN) 二次开发、针对奇瑞车机定制。
 
-**CarPlay for compatible BYD Android head units.** Wired and wireless, with the familiar DiAuto interface. Independent app: `com.shihab.diplay.cn`; installs alongside official DiPlay.
+## 项目简介
 
-> **BYD support scope:** These projects focus on BYD cars. They may work on other brands, but other brands are unsupported and there are no plans to add support or fix brand-specific incompatibilities.
->
-> **Tested vehicle: 2025 BYD Han DM-i, DiLink 5.0.** Other models and other head-unit systems are not guaranteed. Test on your own car, or fork the source and adapt it.
+「奇瑞互联」是一款运行在安卓车机上的 CarPlay 接收器。把它安装到车机后，即可通过 USB 有线或 Wi-Fi 无线连接 iPhone，在车机屏幕上使用苹果 CarPlay 界面，无需任何外接转接盒、无需越狱。
 
-[Download the latest CN build](https://github.com/serein-morii/DiPlay-CN/releases/latest) · [Gitee](https://gitee.com/oneeyear/DiPlay-CN/releases/latest) · [CN optimization log](docs/CN_OPTIMIZATIONS.md) · [All CN releases](https://github.com/serein-morii/DiPlay-CN/releases) · [Upstream DiPlay](https://github.com/shihabal3amri/DiPlay/releases/tag/v0.2.20)
+原项目 DiPlay 主要面向比亚迪 DiLink 车机。本仓库在其基础上，针对奇瑞车机做了定制与适配。
 
-**Signing warning:** The CN release signing key is public. A matching Android signature does not prove an APK came from this project. Use only the linked release pages; see [the signing limitation](SECURITY.md). The package name is retained for existing users' in-place updates.
+## 奇瑞定制内容
 
-![DiPlay home](site/assets/home.png)
+### 1. 车辆品牌设置
 
-## What CN adds on top of upstream
+在「设置 → 车辆 → 车辆品牌」中新增品牌选择：
 
-Every CN change is written down in the **[CN optimization log](docs/CN_OPTIMIZATIONS.md)** — each release, what changed and why. Current base: upstream `v0.2.20`.
+- **比亚迪 DiLink**（默认）：保留原项目全部功能；
+- **奇瑞**：自动隐藏比亚迪专属的仪表盘与导航功能。
 
-- Custom dashboard turn card, CN edition: size 30–95 % and opacity 20–100 % sliders, day/night glass following the head unit, a trip info strip (arrival · duration · distance), and the card survives wireless session drops.
-- In-app updates since `0.2.10-cn.8`: About → Check for updates downloads and installs the next CN build over the current one, settings kept. Four channels: Gitee (default), GitHub, gh-proxy.com, ghproxy.net.
-- Boot auto-start ADB repair for firmwares that block third-party boot receivers.
-- Optional delayed Bluetooth pause while CarPlay runs (5/10/15/30 s), so calls ring on CarPlay only; pairing is never touched.
-- Smaller dashboard-map size option (125 % stream): smaller features, more map.
-- Simplified Chinese by default when the car's language is unsupported; the wireless handoff watchdog steps aside once AirPlay is already active.
-- DiLink 5 full/small cluster-map reconciliation, a proportional turn-card placement preview, connection-stage hints, and optional reconnect when the selected iPhone rejoins Bluetooth.
-- Release APK built as a release variant with the official identity, sized like the official package, signed with one stable CN key since `0.2.10-cn.4` so updates overlay-install.
+这样做的原因：奇瑞车机不具备比亚迪的 DiLink 仪表 / HUD 协议，那些比亚迪专属功能在奇瑞车机上没有意义。选择「奇瑞」后，设置界面更干净、更贴合奇瑞车机。该设置已覆盖全部 8 种界面语言，并有单元测试保障。
 
-## 0.2.19 — CN synchronized preview
+### 2. 品牌改造
 
-Install on the **car**, not the iPhone. No jailbreak, dongle, Mac, account or authentication server is required for use. Core CarPlay does not require ADB; optional dashboard, battery, wheel-speed and parked-video features do. Your head unit must permit APK installation. Wireless supports Wi-Fi Direct, the car’s existing hotspot or Same LAN. Wi-Fi Direct on Android 7.1–9 uses a firmware-dependent legacy path; Android 7.1–8.1 still needs in-car testing.
+- 应用名：DiPlay CN → **奇瑞互联**；
+- 界面标题：DiPlay → **奇瑞互联**；
+- 应用图标：蓝色圆角图标 +「奇瑞」文字 + 红色点缀（奇瑞品牌配色）。
 
-- Wired USB and wireless CarPlay with local authentication.
-- BYD HUD navigation with arrows, distance and street names on verified firmware.
-- Car hotspot support, improved audio buffering and saved receive diagnostics.
-- Automatic address discovery, fixed-channel Wi-Fi fallbacks and successful-configuration memory.
-- Icon/text size, resolution and frame rate; applying a display change reconnects CarPlay.
-- Local diagnostic export. Reports are sent only if you choose to share them.
-- Separate installation alongside DiAuto. Run one projection app at a time.
+## 架构
 
-This is **not an Apple-certified product**. The APK bundles an experimental accessory identity recovered from public Carlinkit firmware, not a newly provisioned MFi identity for DiPlay. A bundled private key is extractable. Acceptance after future iOS updates, reliability across head units and suitability of that identity for general distribution are unresolved. This release invites community testing; it is not a guarantee of universal compatibility.
+本项目是 Gradle 多模块工程，共 6 个模块，职责分层清晰：
 
-**Trademarks and liability**: this project has no affiliation with or authorization from Apple Inc. or BYD; "CarPlay" and "BYD" are trademarks of their owners, used here only descriptively for compatibility; the optional in-app display names are the user's own local personalization. The software is provided free of charge, as-is, contains no Apple proprietary code and circumvents no technical protection measures; use at your own risk. See each release's disclaimer.
+| 模块 | 类型 | 职责 |
+| --- | --- | --- |
+| `shared` | 库 | 协议核心，不含界面：iAP2 协议、AirPlay 会话、MFi 认证、USB/Wi-Fi 传输、H.264 视频解码、Opus 音频、通话、会话编排、HUD、adb、定位等 |
+| `common` | 库 | Android 界面层：设置界面（Compose）、主界面、ExoPlayer 视频播放、二维码；依赖 `shared` |
+| `mobile` | 应用 | 主应用，用户实际安装的就是它 |
+| `automotive` | 应用 | 独立的 Android Automotive 应用 |
+| `maphost` | 应用 | 地图显示示例应用（`samples/`） |
+| `home` | 应用 | 可选的主页启动器（`samples/`） |
 
-## What’s new in 0.2.20
+### CarPlay 数据流
 
-- Wired CarPlay starts faster on many head units, requests CarPlay mode on iOS 26, and can recover USB permission through approved ADB on older head units.
-- Calls, Siri and navigation prompts use the correct 16 kHz playback clock; microphone startup and background music buffering are more robust.
-- DiLink 4 dashboard-map and reversing-camera display transitions no longer trigger the reported restart or reduced-size display cases.
-- Japanese, complete Traditional Chinese and additional Arabic translations; phone-accessible diagnostic reports and contextual connection recovery tips.
-- CN retains its four-channel updater, verified cached APK reuse, full swipe-down settings menu and DiLink 5 small/full cluster-map handling.
+```
+iPhone
+  │  有线 USB / 无线 Wi-Fi Direct
+  ▼
+iAP2 链接握手 + MFi 认证    （shared/iap2、shared/mfi）
+  ▼
+AirPlay 会话（配对 / 验证）  （shared/airplay）
+  ▼
+H.264 视频解码 + Opus 音频   （shared/media）
+  ▼
+渲染到车机屏幕              （common，ExoPlayer）
+```
 
-See [0.2.20 release notes](docs/RELEASE-NOTES-0.2.20.md) and [validation](docs/VALIDATION.md) for contribution links and remaining physical tests. General stutter, calls/Siri, decoder and model-specific reports still need current-device evidence. [0.2.19 notes](docs/RELEASE-NOTES-0.2.19.md) remain available as historical guidance.
+反向链路：车机屏幕触摸 / 方向盘按键 → AirPlay 输入事件 → 回传 iPhone。
 
-If a problem remains, reproduce it on **0.2.19-cn.1**, then use **Settings → Diagnostics → Save diagnostic report**. Android 10+ normally saves to **Downloads/DiPlay**; Android 7.1–9 asks for storage access and saves there too. If unavailable, use **View report** or **Share** from the confirmation, which identifies external/private fallback storage. Review the `.txt` and add it to a matching [existing CN issue](https://github.com/serein-morii/DiPlay-CN/issues), or [create one](https://github.com/serein-morii/DiPlay-CN/issues/new). Include vehicle/head-unit model, exact firmware and Android/DiLink, phone/iOS, connection backend, relevant settings, steps and failure time. Reports are shared only when you choose; never post your hotspot password.
+### 技术栈
 
-## Documentation
+- 语言：Kotlin；界面：View 系统与 Jetpack Compose 混用
+- 构建：Gradle 多模块 + 版本目录（Version Catalog）
+- 原生：NDK（含 C 代码：I2C、车载热点、Speex 回声消除）
+- 车机：androidx.car.app
+- 视频：media3 / ExoPlayer；二维码：zxing
+- 测试：JUnit + Robolectric + Mockito
 
-- [Install and connect](docs/INSTALL.md)
-- [Compatibility and troubleshooting](docs/COMPATIBILITY.md)
-- [Privacy and diagnostic reports](docs/PRIVACY.md)
-- [Build from source](docs/BUILD.md) — select `mobile` for the main DiPlay app; `maphost` is a map sample.
-- [Validation](docs/VALIDATION.md)
-- [Release notes](CHANGELOG.md)
-- [CN optimization log](docs/CN_OPTIMIZATIONS.md)
-- [Credits and licenses](docs/THIRD_PARTY_NOTICES.md)
+## 构建与运行
 
-The website and app support English, Arabic, Russian, Ukrainian, Spanish, Simplified Chinese and Traditional Chinese. Choose the app language in Settings; on Android 13+, it stays synchronized with Android’s per-app language setting.
+### 环境要求
 
-## Source and credits
+- JDK 25
+- Android SDK：Platform 37、Build-Tools 36.0.0
+- NDK 28.2.13676358
+- 可选：Android 模拟器或安卓真机
 
-Based on [xcertplay](https://github.com/shilapi/xcertplay), GPL-3.0. The home/settings UI and website adapt [DiAuto](https://github.com/shihabal3amri/DiAuto), AGPL-3.0; that license is included in `docs/licenses`. Preserve those notices when distributing modifications. CarPlay and its icon belong to Apple Inc.; no Apple or BYD affiliation or endorsement is implied.
+### 编译主应用
 
-This repository starts with a public source snapshot. Local research and tester reports are excluded. The CN Android release-signing key is intentionally public for update compatibility and is **not a security boundary**; see [SECURITY.md](SECURITY.md). The complete source corresponding to the APK is provided with every release; experimental runtime identity assets are described separately in the build instructions and notices.
+```sh
+./gradlew :mobile:assembleDebug
+```
 
-## Local release packaging
+产物路径：`mobile/build/outputs/apk/debug/mobile-debug.apk`
 
-The release APK intentionally contains the experimental accessory identity. The Git repository and source archive exclude accessory identity keys, **but include the CN Android signing key**. Tests generate synthetic identities at runtime. Source/CI builds omit runtime identity assets by default. Local release builds explicitly select an external asset directory. Publishing the APK makes its bundled identity extractable; building locally does not preserve that identity's confidentiality.
+### 运行单元测试与 lint
+
+```sh
+./gradlew :shared:testDebugUnitTest :common:testDebugUnitTest :mobile:lintDebug :mobile:assembleDebug
+```
+
+### 一键启动（模拟器）
+
+```sh
+./run.sh
+```
+
+自动完成：拉起模拟器 → 等待开机 → 安装 APK → 启动应用。
+
+## 目录结构
+
+```
+├── shared/         # 协议核心库
+├── common/         # Android 界面库
+├── mobile/         # 主应用
+├── automotive/     # Android Automotive 应用
+├── samples/
+│   ├── maphost/    # 地图显示示例
+│   └── home/       # 主页启动器示例
+├── scripts/        # 构建与检查脚本
+├── docs/           # 文档
+└── run.sh          # 一键启动脚本
+```
+
+## 许可
+
+本项目基于开源项目 DiPlay-CN 二次开发，沿用其 GPL-3.0 开源许可。详见 [LICENSE](LICENSE)。
